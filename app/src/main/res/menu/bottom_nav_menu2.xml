@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/stud_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+    <item
+        android:id="@+id/stud_result"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Result" />
+    <item
+        android:id="@+id/stud_exam"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Exam" />
+</menu>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradiant"
+    tools:context=".Stud_Result_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/stud_res_name"
+        android:layout_width="308dp"
+        android:layout_height="53dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="600dp"
+        android:gravity="center"
+        android:text="hello name"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/stud_res_id"
+        android:layout_width="313dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="500dp"
+        android:text="hello id"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+
+    <TextView
+        android:id="@+id/stud_res_score"
+        android:layout_width="313dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="225dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="400dp"
+        android:text="hello score"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/stud_res_time"
+        android:layout_width="313dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="300dp"
+        android:text="hello time"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/stud_res_class"
+        android:layout_width="313dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="375dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="200dp"
+        android:text="hello class"
+        android:textAlignment="center"
+        android:textSize="30dp" />
+
+</FrameLayout>
