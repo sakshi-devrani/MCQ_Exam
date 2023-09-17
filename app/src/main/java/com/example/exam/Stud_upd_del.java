@@ -57,6 +57,7 @@ public class Stud_upd_del extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
+                                Toast.makeText(getApplicationContext(), "User Deleted", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),Admin_Panel.class);
                                 startActivity(intent);
                             }
@@ -82,6 +83,7 @@ public class Stud_upd_del extends AppCompatActivity {
                         myRef.update("Stud_Name", name1);
                         myRef.update("Stud_Email", email1);
                         myRef.update("Stud_Contact", contact1);
+                    Toast.makeText(getApplicationContext(), "User updated", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),Admin_Panel.class);
                     startActivity(intent);
                  //   }

@@ -3,15 +3,16 @@ package com.example.exam;
 import android.app.Activity;
 
 public class Data_Model {
-    String  id ,name, email, contact;
+    String  id ,name, email, contact,pwd;
 
 
-    public Data_Model( String name, String email, String contact, String id) {
+    public Data_Model( String name, String email, String contact, String id,String pwd) {
 
         this.name = name;
         this.email = email;
         this.contact = contact;
         this.id = id;
+        this.pwd =pwd;
     }
 
     public String getid() {
@@ -28,6 +29,10 @@ public class Data_Model {
 
     public String getContact() {
         return contact;
+    }
+
+    public String getpwd() {
+        return pwd;
     }
 }
 

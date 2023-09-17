@@ -19,8 +19,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.exam.ui.Stud_Add;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -39,11 +41,14 @@ public class Admin_Home_Fragment extends Fragment {
     String auth_email = "sakshi@gmail.com";
     String auth_pass = "S@k$hi121";
     ListView list;
+
+    FloatingActionButton add_stud;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_admin__home_, container, false);
         list= view.findViewById(R.id.admin_listview);
+        add_stud = view.findViewById(R.id.add_button);
        // datamodel.add( new Data_Model("grur","guru@gamil.com","367682746873","guri"));
         mAuth.signInWithEmailAndPassword(auth_email, auth_pass).addOnCompleteListener(
                 task -> {
@@ -60,7 +65,8 @@ public class Admin_Home_Fragment extends Fragment {
                                                     String name = document.getString("Stud_Name");
                                                     String contact = document.getString("Stud_Contact");
                                                     String email = document.getString("Stud_Email");
-                                                    datamodel.add(new Data_Model(name,email,contact,id));
+                                                    String pwd = document.getString("Stud_pwd");
+                                                    datamodel.add(new Data_Model(name,email,contact,id,pwd));
                                                 }
                                             } else {
                                                 Log.d("here", "Error getting documents: ", task.getException());
@@ -72,6 +78,13 @@ public class Admin_Home_Fragment extends Fragment {
                         }
                     }
                 });
+        add_stud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext().getApplicationContext(), Stud_Add.class);
+                startActivity(intent);
+            }
+        });
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
