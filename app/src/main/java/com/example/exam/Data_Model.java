@@ -2,7 +2,7 @@ package com.example.exam;
 
 import android.app.Activity;
 
-public class Data_Model {
+public class Data_Model extends Stud_Home_Fragment {
     String  id ,name, email, contact,pwd;
 
 
@@ -34,5 +34,6 @@ public class Data_Model {
     public String getpwd() {
         return pwd;
     }
+
 }
 

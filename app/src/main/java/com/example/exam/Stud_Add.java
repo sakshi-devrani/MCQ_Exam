@@ -1,4 +1,4 @@
-package com.example.exam.ui;
+package com.example.exam;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +27,7 @@ import com.google.firebase.firestore.auth.User;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Stud_Add extends AppCompatActivity {
     EditText name;
@@ -59,30 +60,58 @@ public class Stud_Add extends AppCompatActivity {
                 e1 = email.getText().toString();
                 c1 =  contact.getText().toString();
                 p1 = pwd.getText().toString();
+                Pattern uppercase = Pattern.compile("[A-Z]");
+                Pattern lowercase = Pattern.compile("[a-z]");
+                Pattern digit = Pattern.compile("[0-9]");
+                Pattern character = Pattern.compile("[!,#,$,%,^,&,*,~]");
 
                 // validating the text fields if empty or not.
+                if
+
                 if (TextUtils.isEmpty(n1)) {
-                    name.setError("Please enter Course Name");
-                } else if (TextUtils.isEmpty(id1)) {
-                    id.setError("Please enter Course id");
-                } else if (TextUtils.isEmpty(e1)) {
-                    email.setError("Please enter email");
+                    name.setError("Please Enter Student Name");
+                }
+                else if (TextUtils.isEmpty(e1)|| !android.util.Patterns.EMAIL_ADDRESS.matcher(e1).matches()) {
+                    email.setError("Please Enter email Proper Format ");
+                }
+               else if (!lowercase.matcher(p1).find()) {
+                   pwd.setError("please include Lower case also ");
+                }
+               else if (!uppercase.matcher(p1).find()) {
+                    pwd.setError("please include uppercase case also ");
+                }
+                // if digit is not present
+               else if (!digit.matcher(p1).find()) {
+                    pwd.setError("please include Numberic digit also ");
+                }
+                else if (!character.matcher(p1).find()) {
+                    pwd.setError("please include special character also ");
+                }
+                else if (TextUtils.isEmpty(p1)) {
+                    pwd.setError("Please Enter Password");
+                } else if ( pwd.length() < 6 || pwd.length() > 12) {
+                    pwd.setError("between 6 and 12 alphanumeric characters");
+                }
+                else if (TextUtils.isEmpty(id1)) {
+                    id.setError("Please Enter Student Id ");
+                }
+                else if (!digit.matcher(id1).find()) {
+                    id.setError("please include Numberic digit only ");
                 }
                 else if (TextUtils.isEmpty(c1)) {
-                    contact.setError("Please enter contact");
-                }else if (TextUtils.isEmpty(p1)) {
-                    pwd.setError("Please enter password");
-                }else {
-                   // CollectionReference dbo = db.collection("Student_Info");
-
-                 //  Data_Model dataModel= new Data_Model(n1,id1,e1,c1,p1);
+                    contact.setError("Please Enter Contact");
+                }
+                else if ( contact.length() != 10) {
+                    contact.setError("Only 10 Digit Contact ");
+                }
+                else {
                     Map<String, Object> data = new HashMap<>();
                     data.put("Stud_pwd", p1);
                     data.put("Stud_Name", n1);
                     data.put("Stud_Contact", c1);
                     data.put("Stud_Email", e1);
                     data.put("Stud_id", id1);
-                    db.collection("Student_Info").document(n1).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    db.collection("Student_Info").document(id1).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_SHORT).show();

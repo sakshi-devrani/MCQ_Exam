@@ -1,17 +1,15 @@
 package com.example.exam;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class admin_home_listveiw extends ArrayAdapter<Data_Model> {
+public class admin_home_listveiw_Adapter extends ArrayAdapter<Data_Model> {
 
     Context mContext;
 
@@ -23,7 +21,7 @@ public class admin_home_listveiw extends ArrayAdapter<Data_Model> {
 
     }
 
-    public admin_home_listveiw(ArrayList<Data_Model> data, Context context) {
+    public admin_home_listveiw_Adapter(ArrayList<Data_Model> data, Context context) {
         super(context, R.layout.admin_home_listview, data);
         this.mContext = context;
 
