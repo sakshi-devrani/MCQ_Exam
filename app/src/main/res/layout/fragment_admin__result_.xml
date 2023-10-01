@@ -3,15 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradiant"
+    android:background="@color/main"
     tools:context=".Admin_Result_Fragment" >
     <TextView
-        android:id="@+id/textview"
-        android:text="hello i am result"
-        android:textSize="30dp"
-        android:gravity="center"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
-    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:padding="10dp"
+        android:layout_marginTop="50dp"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/admin_result_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+    </LinearLayout>
+
+
 </FrameLayout>

@@ -7,14 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
-public class Stud_Sch_List  extends ArrayAdapter<Stud_Data_Model> {
+public class Stud_Sch_List  extends ArrayAdapter<Subj_Data_Model> {
 
     Context mContext;
-    public Stud_Sch_List(ArrayList<Stud_Data_Model> data, Context context) {
+    public Stud_Sch_List(ArrayList<Subj_Data_Model> data, Context context) {
         super(context, R.layout.stud_sch_list, data);
         this.mContext = context;
     }
@@ -27,7 +25,7 @@ public class Stud_Sch_List  extends ArrayAdapter<Stud_Data_Model> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Stud_Data_Model studdataModel = getItem(position);
+        Subj_Data_Model studdataModel = getItem(position);
         Stud_Sch_List.ViewHolder viewHolder;
 
         if (convertView == null) {

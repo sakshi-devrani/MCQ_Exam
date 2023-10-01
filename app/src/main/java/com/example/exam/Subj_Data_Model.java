@@ -1,9 +1,9 @@
 package com.example.exam;
 
-public class Stud_Data_Model {
+public class Subj_Data_Model {
 
     String  subj;
-    public Stud_Data_Model( String subj) {
+    public Subj_Data_Model(String subj) {
 
         this.subj =subj;
     }

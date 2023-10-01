@@ -2,7 +2,6 @@ package com.example.exam;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,26 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Stud_Exam_Fragment extends Fragment {
-    ArrayList<Stud_Data_Model> studdatamodel= new ArrayList<>();
-    ArrayList<Question_data_model> quedatamodel= new ArrayList<>();
+    ArrayList<Subj_Data_Model> studdatamodel= new ArrayList<>();
     ListView listView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -62,7 +54,7 @@ public class Stud_Exam_Fragment extends Fragment {
                                             if (task.isSuccessful()) {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     String subj = document.getString("Sub_Name");
-                                                    studdatamodel.add(new Stud_Data_Model(subj));
+                                                    studdatamodel.add(new Subj_Data_Model(subj));
                                                 }
                                             } else {
                                                 Log.d("here", "Error getting documents: ", task.getException());
@@ -77,11 +69,13 @@ public class Stud_Exam_Fragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                Subj_Data_Model data = (Subj_Data_Model) arg0.getItemAtPosition(position);
+                String item = data.getsubj();
                 obj = requireActivity().getSharedPreferences("Pref", MODE_PRIVATE);
                 SharedPreferences.Editor myEdit = obj.edit();
-                myEdit.putString("Subj", listView.getItemAtPosition(position).toString());
+                myEdit.putString("Subj", item);
                 myEdit.apply();
-                Intent intent = new Intent(getContext().getApplicationContext(), Exam_Panel.class);
+                Intent intent = new Intent(getContext().getApplicationContext(),Exam_Panel.class);
                 startActivity(intent);
             }
         });

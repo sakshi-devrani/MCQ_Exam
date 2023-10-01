@@ -1,5 +1,6 @@
 package com.example.exam;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,7 +43,6 @@ public class Admin_Home_Fragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_admin__home_, container, false);
         list= view.findViewById(R.id.admin_listview);
         add_stud = view.findViewById(R.id.add_button);
-       // datamodel.add( new Data_Model("grur","guru@gamil.com","367682746873","guri"));
         mAuth.signInWithEmailAndPassword(auth_email, auth_pass).addOnCompleteListener(
                 task -> {
                     if (task.isSuccessful()) {
@@ -88,6 +88,7 @@ public class Admin_Home_Fragment extends Fragment {
                 get[1] = data.getemail();
                 get[2] = data.getid();
                 get[3] = data.getContact();
+                get[4]=data.getpwd();
 
                obj = requireActivity().getSharedPreferences("Myfile",
                         Context.MODE_PRIVATE);
@@ -96,6 +97,7 @@ public class Admin_Home_Fragment extends Fragment {
                 editor.putString("email",get[1]);
                 editor.putString("id",get[2]);
                 editor.putString("contact",get[3]);
+                editor.putString("pass",get[4]);
                 editor.apply();
                 Intent intent = new Intent(requireActivity().getApplicationContext(),Stud_upd_del.class);
                 startActivity(intent);

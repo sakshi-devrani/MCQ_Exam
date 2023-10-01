@@ -17,16 +17,22 @@ import com.example.exam.Admin_Panel;
 import com.example.exam.Data_Model;
 import com.example.exam.R;
 import com.example.exam.Stud_upd_del;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Stud_Add extends AppCompatActivity {
@@ -36,7 +42,10 @@ public class Stud_Add extends AppCompatActivity {
     EditText contact ;
 
     EditText pwd;
-    Button clear,submit;
+    Button submit;
+    String auth_email = "sakshi@gmail.com";
+    String auth_pass = "S@k$hi121";
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private  String n1 , e1, c1, id1,p1;
@@ -50,7 +59,6 @@ public class Stud_Add extends AppCompatActivity {
         email = findViewById(R.id.stud_add_email);
         contact = findViewById(R.id.stud_add_number);
         submit= findViewById(R.id.stud_add_submit);
-        clear = findViewById(R.id.stud_add_clear);
         pwd = findViewById(R.id.stud_add_pwd);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,10 +73,13 @@ public class Stud_Add extends AppCompatActivity {
                 Pattern digit = Pattern.compile("[0-9]");
                 Pattern character = Pattern.compile("[!,#,$,%,^,&,*,~]");
 
-                // validating the text fields if empty or not.
-                if
-
-                if (TextUtils.isEmpty(n1)) {
+                 if (TextUtils.isEmpty(id1)) {
+                    id.setError("Please Enter Student Id ");
+                }
+                else if (!digit.matcher(id1).find()) {
+                    id.setError("please include Numberic digit only ");
+                }
+                else if (TextUtils.isEmpty(n1)) {
                     name.setError("Please Enter Student Name");
                 }
                 else if (TextUtils.isEmpty(e1)|| !android.util.Patterns.EMAIL_ADDRESS.matcher(e1).matches()) {
@@ -91,51 +102,70 @@ public class Stud_Add extends AppCompatActivity {
                     pwd.setError("Please Enter Password");
                 } else if ( pwd.length() < 6 || pwd.length() > 12) {
                     pwd.setError("between 6 and 12 alphanumeric characters");
-                }
-                else if (TextUtils.isEmpty(id1)) {
-                    id.setError("Please Enter Student Id ");
-                }
-                else if (!digit.matcher(id1).find()) {
-                    id.setError("please include Numberic digit only ");
+
                 }
                 else if (TextUtils.isEmpty(c1)) {
                     contact.setError("Please Enter Contact");
                 }
-                else if ( contact.length() != 10) {
+                else if ( c1.length() != 10) {
                     contact.setError("Only 10 Digit Contact ");
                 }
                 else {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("Stud_pwd", p1);
-                    data.put("Stud_Name", n1);
-                    data.put("Stud_Contact", c1);
-                    data.put("Stud_Email", e1);
-                    data.put("Stud_id", id1);
-                    db.collection("Student_Info").document(id1).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
-                            startActivity(intent);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Unable to add user", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name.setText(" ");
-                email.setText(" ");
-                id.setText(" ");
-                contact.setText(" ");
-                pwd.setText(" ");
-            }
-        });
+                    mAuth.signInWithEmailAndPassword(auth_email, auth_pass).addOnCompleteListener(
+                                task -> {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        CollectionReference collectionRef = db.collection("Student_Info");
+                                        // Create a query to find documents that match the values
+                                        Query query = collectionRef.whereEqualTo("Stud_Email", e1).whereEqualTo("Stud_id", id1);
+                                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    // Get the number of documents that match the query
+                                                    int count = task.getResult().size();
+                                                    if (count > 0) {
+                                                        // The values exist in the collection
+                                                        Toast.makeText(getApplicationContext(),
+                                                                "Duplicate values "
+                                                                , Toast.LENGTH_SHORT).show();
+                                                        // Get the first document that matches the query
+                                                    } else {
+                                                        Map<String, Object> data = new HashMap<>();
+                                                        data.put("Stud_pwd", p1);
+                                                        data.put("Stud_Name", n1);
+                                                        data.put("Stud_Contact", c1);
+                                                        data.put("Stud_Email", e1);
+                                                        data.put("Stud_id", id1);
+                                                        db.collection("Student_Info").document(id1).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_SHORT).show();
+                                                                Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(getApplicationContext(), "Unable to add user", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                    }
+                                                } else {
+                                                    // The query failed
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "The query failed: " +
+                                                                    Objects.requireNonNull(task.getException())
+                                                                            .getMessage(),
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                 }
+            }}
+        );
+
     }
 }

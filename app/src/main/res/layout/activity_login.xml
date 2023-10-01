@@ -16,8 +16,8 @@
         android:text="Login"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:layout_margin="30dp"
-        android:textSize="40dp"
+        android:layout_margin="10dp"
+        android:textSize="35dp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -38,7 +38,7 @@
         android:background="@drawable/grey_edittext"
         android:inputType="textEmailAddress"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:imeOptions="actionNext"
         android:textSize="20dp" />
 
@@ -50,7 +50,7 @@
         android:textColor="@color/black"
         android:hint="Enter your password"
         android:background="@drawable/grey_edittext"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="10dp"
         android:imeOptions="actionNext"
@@ -68,17 +68,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button"
         android:textSize="20dp" />
-        <TextView
-            android:id="@+id/forget_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Forget Password"
-            android:textAlignment="center"
-            android:textColor="@color/main"
-            android:layout_marginBottom="10dp"
-            android:textAllCaps="false"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

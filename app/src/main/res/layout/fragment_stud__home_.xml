@@ -3,69 +3,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradiant"
+    android:gravity="top|center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/green_light"
     tools:context=".Stud_Home_Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/stud_home_name"
-        android:layout_width="308dp"
-        android:layout_height="53dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="600dp"
-        android:gravity="left"
-        android:text="hello name"
-        android:textSize="30dp" />
 
-    <TextView
-        android:id="@+id/stud_topic"
-        android:layout_width="308dp"
-        android:layout_height="53dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="50dp"
-        android:text="StudentDetail"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        android:padding="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_margin="10dp"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Detail "
+            android:background="@drawable/grey_edittext"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_margin="30dp"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
     <TextView
         android:id="@+id/stud_home_id"
-        android:layout_width="313dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="500dp"
-        android:gravity="left"
-        android:text="hello id"
-        android:textSize="30dp" />
-
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:hint="student id"
+        android:background="@drawable/grey_edittext"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp"  />
+        <TextView
+            android:id="@+id/stud_home_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:hint="student contact"
+            android:background="@drawable/grey_edittext"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="25dp"  />
 
     <TextView
         android:id="@+id/stud_home_email"
-        android:layout_width="313dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="215dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="400dp"
-        android:gravity="left"
-        android:text="hello email"
-        android:textSize="30dp" />
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:hint="student email"
+        android:background="@drawable/grey_edittext"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:textSize="25dp"  />
 
-    <TextView
+
+        <TextView
         android:id="@+id/stud_home_contact"
-        android:layout_width="313dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="275dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="300dp"
-        android:gravity="left"
-        android:text="hello contact"
-        android:textSize="30dp" />
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:hint="student contact"
+            android:background="@drawable/grey_edittext"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="25dp"  />
 
-
+    </LinearLayout>
 </FrameLayout>

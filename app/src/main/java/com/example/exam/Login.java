@@ -177,7 +177,7 @@ public class Login extends AppCompatActivity {
                                             } else {
                                                 // The values do not exist in the collection
                                                 Toast.makeText(getApplicationContext(),
-                                                        "The values do not exist ",
+                                                        "User Not Found ",
                                                         Toast.LENGTH_SHORT).show();
                                             }
                                         } else {

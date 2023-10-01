@@ -1,4 +1,7 @@
 package com.example.exam;
+
+import android.widget.RadioButton;
+
 public class Question_data_model {
     String  id,que ,ans, o1, o2,o3,o4;
     public Question_data_model(String que, String ans, String o1, String o2,String o3,String o4) {
@@ -26,6 +29,7 @@ public class Question_data_model {
     public String geto4() {
         return o4;
     }
+
 
 }
 
