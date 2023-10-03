@@ -45,18 +45,6 @@
         android:inputType="textEmailAddress"
         android:layout_marginBottom="15dp"
         android:textSize="25dp" />
-        <EditText
-            android:id="@+id/edit_pass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:hint="Enter Student password"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/grey_edittext"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="15dp"
-            android:textSize="25dp" />
 
     <EditText
         android:id="@+id/edit_name"

@@ -116,20 +116,16 @@ public class Stud_Add extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         CollectionReference collectionRef = db.collection("Student_Info");
-                                        // Create a query to find documents that match the values
                                         Query query = collectionRef.whereEqualTo("Stud_Email", e1).whereEqualTo("Stud_id", id1);
                                         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()) {
-                                                    // Get the number of documents that match the query
                                                     int count = task.getResult().size();
                                                     if (count > 0) {
-                                                        // The values exist in the collection
                                                         Toast.makeText(getApplicationContext(),
                                                                 "Duplicate values "
                                                                 , Toast.LENGTH_SHORT).show();
-                                                        // Get the first document that matches the query
                                                     } else {
                                                         Map<String, Object> data = new HashMap<>();
                                                         data.put("Stud_pwd", p1);
@@ -142,13 +138,11 @@ public class Stud_Add extends AppCompatActivity {
                                                             public void onSuccess(Void unused) {
                                                                 Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_SHORT).show();
                                                                 Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
-                                                                startActivity(intent);
-                                                            }
+                                                                startActivity(intent); }
                                                         }).addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
-                                                                Toast.makeText(getApplicationContext(), "Unable to add user", Toast.LENGTH_SHORT).show();
-                                                            }
+                                                                Toast.makeText(getApplicationContext(), "Unable to add user", Toast.LENGTH_SHORT).show(); }
                                                         });
                                                     }
                                                 } else {
@@ -157,8 +151,7 @@ public class Stud_Add extends AppCompatActivity {
                                                             "The query failed: " +
                                                                     Objects.requireNonNull(task.getException())
                                                                             .getMessage(),
-                                                            Toast.LENGTH_SHORT).show();
-                                                }
+                                                            Toast.LENGTH_SHORT).show(); }
                                             }
                                         });
                                     }

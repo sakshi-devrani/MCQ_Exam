@@ -1,5 +1,4 @@
 package com.example.exam;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -11,10 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 public class User_Selection extends AppCompatActivity {
   Button admin,user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,17 +40,12 @@ public class User_Selection extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
             }
-        });
-
-    }
+        });}
     public boolean isOnline() {
-        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
         if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
             Toast.makeText(this, "No Internet connection!", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
-    }
-
-}
+            return false; }
+        return true; } }

@@ -1,5 +1,4 @@
 package com.example.exam;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +12,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.exam.databinding.ActivityAdminPanelBinding;
 import com.example.exam.databinding.ActivityStudPanelBinding;
-
 public class Stud_Panel extends AppCompatActivity {
     ActivityStudPanelBinding binding;
     @Override
@@ -28,15 +28,11 @@ public class Stud_Panel extends AppCompatActivity {
         binding.BottomNavStud.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.stud_exam) {
-                replacefragments(new Stud_Exam_Fragment());
-            }
+                replacefragments(new Stud_Exam_Fragment()); }
             else if (itemId ==R.id.stud_result) {
-                replacefragments(new Stud_Result_Fragment());
-            }
-            else if(itemId==R.id.stud_home)
-            {
-                replacefragments(new Stud_Home_Fragment());
-            }
+                replacefragments(new Stud_Result_Fragment()); }
+            else if(itemId==R.id.stud_home) {
+                replacefragments(new Stud_Home_Fragment()); }
             return true;
         });
     }
@@ -44,6 +40,5 @@ public class Stud_Panel extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
-        fragmentTransaction.commit();
-    }
+        fragmentTransaction.commit(); }
 }

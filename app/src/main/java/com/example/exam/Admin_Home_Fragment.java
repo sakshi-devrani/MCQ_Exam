@@ -58,8 +58,7 @@ public class Admin_Home_Fragment extends Fragment {
                                                     String name = document.getString("Stud_Name");
                                                     String contact = document.getString("Stud_Contact");
                                                     String email = document.getString("Stud_Email");
-                                                    String pwd = document.getString("Stud_pwd");
-                                                    datamodel.add(new Data_Model(name,email,contact,id,pwd));
+                                                    datamodel.add(new Data_Model(name,email,contact,id));
                                                 }
                                             } else {
                                                 Log.d("here", "Error getting documents: ", task.getException());
@@ -79,7 +78,6 @@ public class Admin_Home_Fragment extends Fragment {
             }
         });
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Data_Model data = (Data_Model) list.getItemAtPosition(position);
@@ -88,21 +86,16 @@ public class Admin_Home_Fragment extends Fragment {
                 get[1] = data.getemail();
                 get[2] = data.getid();
                 get[3] = data.getContact();
-                get[4]=data.getpwd();
-
-               obj = requireActivity().getSharedPreferences("Myfile",
-                        Context.MODE_PRIVATE);
+               obj = requireActivity().getSharedPreferences("Myfile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = obj.edit();
                 editor.putString("name",get[0]);
                 editor.putString("email",get[1]);
                 editor.putString("id",get[2]);
                 editor.putString("contact",get[3]);
-                editor.putString("pass",get[4]);
                 editor.apply();
                 Intent intent = new Intent(requireActivity().getApplicationContext(),Stud_upd_del.class);
                 startActivity(intent);
             }
-
         });
         return view;
         }

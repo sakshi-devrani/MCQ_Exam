@@ -1,5 +1,4 @@
 package com.example.exam;
-
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
@@ -25,7 +24,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
 public class Stud_Exam_Fragment extends Fragment {
     ArrayList<Subj_Data_Model> studdatamodel= new ArrayList<>();
     ListView listView;
@@ -54,17 +52,15 @@ public class Stud_Exam_Fragment extends Fragment {
                                             if (task.isSuccessful()) {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     String subj = document.getString("Sub_Name");
-                                                    studdatamodel.add(new Subj_Data_Model(subj));
-                                                }
+                                                    studdatamodel.add(new Subj_Data_Model(subj)); }
                                             } else {
                                                 Log.d("here", "Error getting documents: ", task.getException());
                                             }
-                                            Stud_Sch_List adapter=new Stud_Sch_List(studdatamodel, requireActivity().getApplicationContext());
-                                            listView.setAdapter(adapter);
-                                        }
+                                            Stud_Sch_List adapter=new Stud_Sch_List(studdatamodel,
+                                                    requireActivity().getApplicationContext());
+                                            listView.setAdapter(adapter); }
                                     });
-                        }
-                    }
+                        } }
                 });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

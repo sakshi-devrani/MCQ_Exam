@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
     public class Exam_Question_Adapter extends ArrayAdapter<Question_data_model> {
@@ -16,6 +17,7 @@ import java.util.ArrayList;
         private static class ViewHolder {
             public View view;
             TextView que;
+            RadioGroup radioGroup;
             RadioButton o1;
             RadioButton o2;
             RadioButton o3;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
             this.mContext = context;
         }
         private int lastPosition = -1;
+        int marks = 0;
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             Question_data_model quedataModel = getItem(position);
@@ -55,8 +58,31 @@ import java.util.ArrayList;
             viewHolder.o4.setText(quedataModel.geto4());
 
            viewHolder.o1.setOnCheckedChangeListener((compoundButton, b) -> {
-               //if(b) quedataModel.setSele
+               if(b) quedataModel.getSelectedanswer(1);
            });
+            viewHolder.o2.setOnCheckedChangeListener((compoundButton, b) -> {
+                if(b) quedataModel.getSelectedanswer(2);
+            });
+            viewHolder.o3.setOnCheckedChangeListener((compoundButton, b) -> {
+                if(b) quedataModel.getSelectedanswer(3);
+            });
+            viewHolder.o4.setOnCheckedChangeListener((compoundButton, b) -> {
+                if(b) quedataModel.getSelectedanswer(4);
+            });
+             switch (quedataModel.selectedanswer){
+                 case 1:
+                     viewHolder.o1.setChecked(true);
+                     break;
+                 case 2:
+                     viewHolder.o2.setChecked(true);
+                     break;
+                 case 3:
+                     viewHolder.o3.setChecked(true);
+                     break;
+                 case 4:
+                     viewHolder.o4.setChecked(true);
+                     break;
+             }
             return convertView;
         }
 }

@@ -1,5 +1,4 @@
 package com.example.exam;
-
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
@@ -26,10 +25,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
 public class Stud_Result_Fragment extends Fragment {
     ArrayList<Result_Data_Model> resultdatamodel = new ArrayList<>();
-    SharedPreferences obj;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String auth_email = "sakshi@gmail.com";
@@ -38,7 +35,6 @@ public class Stud_Result_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_stud__result_, container, false);
         list= view.findViewById(R.id.stud_result_listview);
         SharedPreferences pref = requireActivity().getSharedPreferences("Pref",MODE_PRIVATE);
@@ -63,12 +59,10 @@ public class Stud_Result_Fragment extends Fragment {
                                             } else {
                                                 Log.d("here", "Error getting documents: ", task.getException());
                                             }
-                                            Result_Data_Adapter adapter=new Result_Data_Adapter(resultdatamodel, requireActivity().getApplicationContext());
-                                            list.setAdapter(adapter);
-                                        }
+                                            Result_Data_Adapter adapter=new Result_Data_Adapter(resultdatamodel,requireActivity().getApplicationContext());
+                                            list.setAdapter(adapter); }
                                     });
-                        }
-                    }
+                        } }
                 });
         return view;
     }

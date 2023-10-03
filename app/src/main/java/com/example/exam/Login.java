@@ -1,5 +1,4 @@
 package com.example.exam;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,8 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Objects;
-
-
 public class Login extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -31,7 +28,6 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     String auth_email = "sakshi@gmail.com";
     String auth_pass = "S@k$hi121";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +41,7 @@ public class Login extends AppCompatActivity {
             String log = pref.getString("logged_in",null);
             if(log!=null){
                 Intent intent = new Intent(getApplicationContext(),Admin_Panel.class);
-                startActivity(intent);
-            }
+                startActivity(intent); }
         }
         loginButton.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -55,11 +50,9 @@ public class Login extends AppCompatActivity {
                  Toast.makeText(getApplicationContext(),
                          "Enter proper values", Toast.LENGTH_LONG).show();
              } else {
-                 checkUser();
-             }
+                 checkUser(); }
          }
      });
-
     }
     public Boolean validateUsername() {
         String val = loginUsername.getText().toString();
@@ -68,8 +61,7 @@ public class Login extends AppCompatActivity {
             return false;
         } else {
             loginUsername.setError(null);
-            return true;
-        }
+            return true; }
     }
     public Boolean validatePassword(){
         String val = loginPassword.getText().toString();
@@ -78,8 +70,7 @@ public class Login extends AppCompatActivity {
             return false;
         } else {
             loginPassword.setError(null);
-            return true;
-        }
+            return true; }
     }
     public void checkUser(){
         SharedPreferences pref = getSharedPreferences("Pref",MODE_PRIVATE);
@@ -110,15 +101,11 @@ public class Login extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(),
                                                     "Welcome"
                                                     , Toast.LENGTH_SHORT).show();
-                                            // Get the first document that matches the query
                                             DocumentSnapshot document = task.getResult()
                                                     .getDocuments().get(0);
-                                            // Retrieve the row data from the document
                                             String id = document.getId();
                                             String name = document.getString("Admin_Email");
                                             String age = document.getString("Admin_Password");
-                                            // Display the row data
-                                           // SharedPreferences pref = getSharedPreferences("Pref",MODE_PRIVATE);
                                             SharedPreferences.Editor myEdit = pref.edit();
                                             myEdit.putString("logged_in", (id)) ;
                                             myEdit.apply();
@@ -128,16 +115,14 @@ public class Login extends AppCompatActivity {
                                             // The values do not exist in the collection
                                             Toast.makeText(getApplicationContext(),
                                                     "The User don,t exist ",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                                                    Toast.LENGTH_SHORT).show(); }
                                     } else {
                                         // The query failed
                                         Toast.makeText(getApplicationContext(),
                                                 "The query failed: " +
                                                         Objects.requireNonNull(task.getException())
                                                                 .getMessage(),
-                                                Toast.LENGTH_SHORT).show();
-                                    }
+                                                Toast.LENGTH_SHORT).show(); }
                                 }
                             });
                         } else
@@ -160,7 +145,6 @@ public class Login extends AppCompatActivity {
                                                 // Get the first document that matches the query
                                                 DocumentSnapshot document = task.getResult()
                                                         .getDocuments().get(0);
-                                                // Retrieve the row data from the document
                                                 String id = document.getId();
                                                 String name = document.getString("Stud_Name");
                                                 String contact = document.getString("Stud_Contact");
@@ -175,25 +159,19 @@ public class Login extends AppCompatActivity {
                                                 Intent intent = new Intent(getApplicationContext(),Stud_Panel.class);
                                                 startActivity(intent);
                                             } else {
-                                                // The values do not exist in the collection
                                                 Toast.makeText(getApplicationContext(),
                                                         "User Not Found ",
-                                                        Toast.LENGTH_SHORT).show();
-                                            }
+                                                        Toast.LENGTH_SHORT).show(); }
                                         } else {
-                                            // The query failed
                                             Toast.makeText(getApplicationContext(),
                                                     "The query failed: " +
                                                             Objects.requireNonNull(task.getException())
                                                                     .getMessage(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                                                    Toast.LENGTH_SHORT).show(); }
                                     }
                                 });
-                            }
-                    }
+                            } }
                     }}
         );
-
     }
 }

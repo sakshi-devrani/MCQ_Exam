@@ -94,19 +94,7 @@
                 android:textSize="25dp"
                 android:background="@drawable/grey_edittext">
             </RadioButton>
-            <TextView
-                android:id="@+id/stud_exam_ans"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="correct answer"
-                android:visibility="gone"
-                android:textColor="@color/green_dark"
-                android:background="@drawable/green"
-                />
+
         </RadioGroup>
     </LinearLayout>
 

@@ -52,17 +52,15 @@ public class Exam_Panel extends AppCompatActivity {
                                                     String o3 = document.getString("o3");
                                                     String o4 = document.getString("o4");
                                                     String ans = document.getString("ans");
-                                                    quedatamodel.add(new Question_data_model(que, ans, o1, o2, o3, o4));
-                                                }
+                                                    quedatamodel.add(new Question_data_model(que, ans, o1, o2, o3, o4)); }
                                             } else {
                                                 Log.d("here", "Error getting documents: ", task.getException());
                                             }
-                                            Exam_Question_Adapter adapter=new Exam_Question_Adapter(quedatamodel, getApplicationContext());
-                                            lv.setAdapter(adapter);
-                                        }
+                                            Exam_Question_Adapter adapter=new Exam_Question_Adapter(quedatamodel,
+                                                    getApplicationContext());
+                                            lv.setAdapter(adapter); }
                                     });
-                        }
-                    }
+                        } }
                 });
     }
 }

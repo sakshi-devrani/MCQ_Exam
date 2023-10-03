@@ -31,11 +31,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/craete_exam"
+            android:id="@+id/create_exam"
             android:textStyle="bold"
             android:text="Create "
             android:textAllCaps="false"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:textSize="25dp"
             android:textColor="@color/white"
@@ -48,7 +48,7 @@
             android:text="Created Exam List "
             android:background="@drawable/grey_edittext"
             android:textColor="@color/main"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:textAllCaps="false"
             android:textSize="30dp"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/craeted_list_admin"
             android:background="@drawable/grey_edittext"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
 
         </ListView>
     </LinearLayout>

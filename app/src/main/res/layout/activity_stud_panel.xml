@@ -7,28 +7,18 @@
     tools:context=".Stud_Panel">
 
     <FrameLayout
-        android:layout_width="0dp"
         android:id="@+id/frame_layout"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/Bottom_nav_stud"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:id="@+id/textViewOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-            android:text="⋮"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:gravity="center_horizontal|center_vertical"/>
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/Bottom_nav_stud"
         android:layout_width="match_parent"

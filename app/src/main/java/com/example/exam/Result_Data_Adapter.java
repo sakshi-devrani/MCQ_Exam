@@ -25,6 +25,8 @@ public class Result_Data_Adapter extends ArrayAdapter<Result_Data_Model> {
         this.mContext = context;
     }
     private int lastPosition = -1;
+    int count_correct_answer = 0;
+    int count_wrong_answer = 0;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Result_Data_Model resultdataModel = getItem(position);
