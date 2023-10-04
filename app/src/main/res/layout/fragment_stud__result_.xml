@@ -5,12 +5,40 @@
     android:layout_height="match_parent"
     android:background="@color/green_light"
     tools:context=".Stud_Result_Fragment">
+    <Button
+        android:id="@+id/stud_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_marginLeft="330dp"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:background="@drawable/green_button"
+        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:layout_margin="10dp"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:padding="10dp"
+        android:layout_marginTop="50dp"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/stud_result_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
+    </LinearLayout>
 </FrameLayout>

@@ -1,15 +1,20 @@
 package com.example.exam;
+import static android.content.Context.MODE_PRIVATE;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,7 +26,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
 public class Admin_Result_Fragment extends Fragment {
     ArrayList<Result_Data_Model> resultdatamodel = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -35,6 +39,7 @@ public class Admin_Result_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_admin__result_, container, false);
         list= view.findViewById(R.id.admin_result_listview);
+        Button btn = view.findViewById(R.id.admin_logout);
         mAuth.signInWithEmailAndPassword(auth_email, auth_pass).addOnCompleteListener(
                 task -> {
                     if (task.isSuccessful()) {
@@ -62,6 +67,28 @@ public class Admin_Result_Fragment extends Fragment {
                         }
                     }
                 });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder  builder = new AlertDialog.Builder(Admin_Result_Fragment.this.getContext());
+                builder.setMessage("Do you want to exit?");
+                builder.setTitle("Alert!");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    SharedPreferences preferences = getContext().getSharedPreferences("Pref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("logged_in",null);
+                    editor.apply();
+                    Intent intent = new Intent(getContext().getApplicationContext(),User_Selection.class);
+                    startActivity(intent);
+                });
+                builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    dialog.cancel();
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
         return view;
     }
 }

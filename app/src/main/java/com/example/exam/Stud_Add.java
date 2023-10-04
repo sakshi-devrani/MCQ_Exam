@@ -68,8 +68,6 @@ public class Stud_Add extends AppCompatActivity {
                 e1 = email.getText().toString();
                 c1 =  contact.getText().toString();
                 p1 = pwd.getText().toString();
-                Pattern uppercase = Pattern.compile("[A-Z]");
-                Pattern lowercase = Pattern.compile("[a-z]");
                 Pattern digit = Pattern.compile("[0-9]");
                 Pattern character = Pattern.compile("[!,#,$,%,^,&,*,~]");
 
@@ -85,13 +83,6 @@ public class Stud_Add extends AppCompatActivity {
                 else if (TextUtils.isEmpty(e1)|| !android.util.Patterns.EMAIL_ADDRESS.matcher(e1).matches()) {
                     email.setError("Please Enter email Proper Format ");
                 }
-               else if (!lowercase.matcher(p1).find()) {
-                   pwd.setError("please include Lower case also ");
-                }
-               else if (!uppercase.matcher(p1).find()) {
-                    pwd.setError("please include uppercase case also ");
-                }
-                // if digit is not present
                else if (!digit.matcher(p1).find()) {
                     pwd.setError("please include Numberic digit also ");
                 }
@@ -146,7 +137,6 @@ public class Stud_Add extends AppCompatActivity {
                                                         });
                                                     }
                                                 } else {
-                                                    // The query failed
                                                     Toast.makeText(getApplicationContext(),
                                                             "The query failed: " +
                                                                     Objects.requireNonNull(task.getException())

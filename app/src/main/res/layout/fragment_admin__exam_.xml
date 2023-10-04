@@ -15,9 +15,8 @@
         android:layout_marginTop="20dp"
         android:gravity="top|center_horizontal"
         android:orientation="vertical">
-
         <TextView
-            android:id="@+id/create"
+            android:id="@+id/creat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create New Quiz "
@@ -25,7 +24,19 @@
             android:textColor="@color/main"
             android:layout_marginBottom="10dp"
             android:textAllCaps="false"
-            android:textSize="30dp"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter Subject Name"
+            android:background="@drawable/grey_edittext"
+            android:textColor="@color/main"
+            android:layout_marginBottom="10dp"
+            android:inputType="text"
+            android:textAllCaps="false"
+            android:textSize="40sp"
             android:textStyle="bold" />
 
         <Button
@@ -35,7 +46,6 @@
             android:textStyle="bold"
             android:text="Create "
             android:textAllCaps="false"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:textSize="25dp"
             android:textColor="@color/white"
