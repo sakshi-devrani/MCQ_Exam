@@ -69,9 +69,10 @@ public class Stud_Add extends AppCompatActivity {
                 c1 =  contact.getText().toString();
                 p1 = pwd.getText().toString();
                 Pattern digit = Pattern.compile("[0-9]");
-                Pattern character = Pattern.compile("[!,#,$,%,^,&,*,~]");
+                Pattern character = Pattern.compile("[@,_,.,),(,},{,,/,?!,#,$,%,^,&,*,~]");
+                Pattern check = Pattern.compile("gmail.com");
 
-                 if (TextUtils.isEmpty(id1)) {
+                if (TextUtils.isEmpty(id1)) {
                     id.setError("Please Enter Student Id ");
                 }
                 else if (!digit.matcher(id1).find()) {
@@ -83,7 +84,10 @@ public class Stud_Add extends AppCompatActivity {
                 else if (TextUtils.isEmpty(e1)|| !android.util.Patterns.EMAIL_ADDRESS.matcher(e1).matches()) {
                     email.setError("Please Enter email Proper Format ");
                 }
-               else if (!digit.matcher(p1).find()) {
+                else if(!check.matcher(e1).find()) {
+                    email.setError("Please Enter email Proper Format ");
+                }
+                else if (!digit.matcher(p1).find()) {
                     pwd.setError("please include Numberic digit also ");
                 }
                 else if (!character.matcher(p1).find()) {
@@ -93,7 +97,6 @@ public class Stud_Add extends AppCompatActivity {
                     pwd.setError("Please Enter Password");
                 } else if ( pwd.length() < 6 || pwd.length() > 12) {
                     pwd.setError("between 6 and 12 alphanumeric characters");
-
                 }
                 else if (TextUtils.isEmpty(c1)) {
                     contact.setError("Please Enter Contact");
@@ -103,50 +106,51 @@ public class Stud_Add extends AppCompatActivity {
                 }
                 else {
                     mAuth.signInWithEmailAndPassword(auth_email, auth_pass).addOnCompleteListener(
-                                task -> {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        CollectionReference collectionRef = db.collection("Student_Info");
-                                        Query query = collectionRef.whereEqualTo("Stud_Email", e1).whereEqualTo("Stud_id", id1);
-                                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    int count = task.getResult().size();
-                                                    if (count > 0) {
-                                                        Toast.makeText(getApplicationContext(),
-                                                                "Duplicate values "
-                                                                , Toast.LENGTH_SHORT).show();
-                                                    } else {
-                                                        Map<String, Object> data = new HashMap<>();
-                                                        data.put("Stud_pwd", p1);
-                                                        data.put("Stud_Name", n1);
-                                                        data.put("Stud_Contact", c1);
-                                                        data.put("Stud_Email", e1);
-                                                        data.put("Stud_id", id1);
-                                                        db.collection("Student_Info").document(id1).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void unused) {
-                                                                Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_SHORT).show();
-                                                                Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
-                                                                startActivity(intent); }
-                                                        }).addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Toast.makeText(getApplicationContext(), "Unable to add user", Toast.LENGTH_SHORT).show(); }
-                                                        });
-                                                    }
-                                                } else {
+                            task -> {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    CollectionReference collectionRef = db.collection("Student_Info");
+                                    Query query = collectionRef.whereEqualTo("Stud_id", id1);
+                                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                int count = task.getResult().size();
+                                                if (count > 0) {
                                                     Toast.makeText(getApplicationContext(),
-                                                            "The query failed: " +
-                                                                    Objects.requireNonNull(task.getException())
-                                                                            .getMessage(),
-                                                            Toast.LENGTH_SHORT).show(); }
-                                            }
-                                        });
-                                    }
-                                });
-                 }
+                                                            "Id already exist"
+                                                            , Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Map<String, Object> data = new HashMap<>();
+                                                    data.put("Stud_pwd", p1);
+                                                    data.put("Stud_Name", n1);
+                                                    data.put("Stud_Contact", c1);
+                                                    data.put("Stud_Email", e1);
+                                                    data.put("Stud_id", id1);
+                                                    db.collection("Student_Info").document(id1).set(data)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_SHORT).show();
+                                                                    Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
+                                                                    startActivity(intent); }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(getApplicationContext(), "Unable to add user", Toast.LENGTH_SHORT).show(); }
+                                                            });
+                                                }
+                                            } else {
+                                                Toast.makeText(getApplicationContext(),
+                                                        "The query failed: " +
+                                                                Objects.requireNonNull(task.getException())
+                                                                        .getMessage(),
+                                                        Toast.LENGTH_SHORT).show(); }
+                                        }
+                                    });
+                                }
+                            });
+                }
             }}
         );
 

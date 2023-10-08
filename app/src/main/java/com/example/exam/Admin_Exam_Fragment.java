@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -93,16 +94,22 @@ public class Admin_Exam_Fragment extends Fragment {
                             task -> {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Task<QuerySnapshot> collectionRef = db.collection("Subject")
-                                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        int count = task.getResult().size();
-                                                        if (count > 0) {
-                                                            Map<String, Object> data = new HashMap<>();
-                                                            data.put("Sub_Name", edit);
-                                                            db.collection("Subject").document(edit).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    CollectionReference collectionRef = db.collection("Subject");
+                                    Query query = collectionRef.whereEqualTo("Sub_Name", edit);
+                                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                int count = task.getResult().size();
+                                                if (count > 0) {
+                                                    Toast.makeText(getContext().getApplicationContext(),
+                                                            "Duplicate values "
+                                                            , Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Map<String, Object> data = new HashMap<>();
+                                                    data.put("Sub_Name", edit);
+                                                    db.collection("Subject").document(edit).set(data)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void unused) {
                                                                     Toast.makeText(getContext().getApplicationContext(), "Subject Added", Toast.LENGTH_SHORT).show();
@@ -111,17 +118,17 @@ public class Admin_Exam_Fragment extends Fragment {
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
-                                                                    Toast.makeText(getContext().getApplicationContext(), "Unable to add Subject", Toast.LENGTH_SHORT).show(); }
+                                                                    Toast.makeText(getContext().getApplicationContext(), "Unable to add subject", Toast.LENGTH_SHORT).show(); }
                                                             });
-                                                        }
-                                                    } else {
-                                                        Toast.makeText(getContext().getApplicationContext(),
-                                                                "The query failed: " +
-                                                                        Objects.requireNonNull(task.getException())
-                                                                                .getMessage(),
-                                                                Toast.LENGTH_SHORT).show(); }
                                                 }
-                                            });
+                                            } else {
+                                                Toast.makeText(getContext().getApplicationContext(),
+                                                        "The query failed: " +
+                                                                Objects.requireNonNull(task.getException())
+                                                                        .getMessage(),
+                                                        Toast.LENGTH_SHORT).show(); }
+                                        }
+                                    });
                                 }
                             });
                 }

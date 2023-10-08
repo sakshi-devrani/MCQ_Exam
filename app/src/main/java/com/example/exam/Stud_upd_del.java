@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,6 +26,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -32,6 +35,8 @@ public class Stud_upd_del extends AppCompatActivity {
     EditText name,email,contact;
     TextView id;
     Button Del , update;
+    String auth_email = "sakshi@gmail.com";
+    String auth_pass = "S@k$hi121";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -44,15 +49,14 @@ public class Stud_upd_del extends AppCompatActivity {
         id = findViewById(R.id.edit_id);
         contact = findViewById(R.id.edit_number);
         Del = findViewById(R.id.Delete);
-        update= findViewById(R.id.Update);
+        update = findViewById(R.id.Update);
 
-        SharedPreferences pref = getSharedPreferences("Myfile",MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("Myfile", MODE_PRIVATE);
         String name1 = pref.getString("name", null);
         String email1 = pref.getString("email", null);
         String id1 = pref.getString("id", null);
         String contact1 = pref.getString("contact", null);
-        if(name1 != null)
-        {
+        if (name1 != null) {
             name.setText(name1);
             email.setText(email1);
             id.setText(id1);
@@ -66,13 +70,15 @@ public class Stud_upd_del extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getApplicationContext(), "User Deleted", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),Admin_Panel.class);
-                                startActivity(intent); }
+                                Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
+                                startActivity(intent);
+                            }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Unable to delete user", Toast.LENGTH_SHORT).show(); }
+                                Toast.makeText(getApplicationContext(), "Unable to delete user", Toast.LENGTH_SHORT).show();
+                            }
                         });
             }
         });
@@ -82,49 +88,51 @@ public class Stud_upd_del extends AppCompatActivity {
                 String name1 = name.getText().toString();
                 String email1 = email.getText().toString();
                 String contact1 = contact.getText().toString();
-
-                if (TextUtils.isEmpty(email1)|| !android.util.Patterns.EMAIL_ADDRESS.matcher(email1).matches()) {
-                    email.setError("Please Enter email Proper Format "); }
-                else if (TextUtils.isEmpty(name1)) {
-                    name.setError("Please Enter Student Name"); }
-                else if (TextUtils.isEmpty(contact1)) {
-                    contact.setError("Please Enter Contact"); }
-                else if ( contact1.length() != 10) {
-                    contact.setError("Only 10 Digit Contact "); }
-                else{
-                if (!TextUtils.isEmpty(name1) && !TextUtils.isEmpty(email1)) {
-                    assert email1 != null;
-                    {
-                        CollectionReference collectionRef = db.collection("Student_Info");
-                        Query query = collectionRef.whereEqualTo("Stud_Email", email1);
-                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Pattern check = Pattern.compile("gmail.com");
+                if (TextUtils.isEmpty(email1) || !android.util.Patterns.EMAIL_ADDRESS.matcher(email1).matches()) {
+                    email.setError("Please Enter email Proper Format ");
+                } else if (!check.matcher(email1).find()) {
+                    email.setError("Please Enter email Proper Format ");
+                } else if (TextUtils.isEmpty(name1)) {
+                    name.setError("Please Enter Student Name");
+                } else if (TextUtils.isEmpty(contact1)) {
+                    contact.setError("Please Enter Contact");
+                } else if (contact1.length() != 10) {
+                    contact.setError("Only 10 Digit Contact ");
+                } else {
+                    mAuth.signInWithEmailAndPassword(auth_email, auth_pass).addOnCompleteListener(
+                            task -> {
                                 if (task.isSuccessful()) {
-                                    int count = task.getResult().size();
-                                    if (count > 0) {
-                                        Toast.makeText(getApplicationContext(),
-                                                "Duplicate Email Id"
-                                                , Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        DocumentReference myRef = db.collection("Student_Info").document(id1);
-                                        myRef.update("Stud_Name", name1);
-                                        myRef.update("Stud_Email", email1);
-                                        myRef.update("Stud_Contact", contact1);
-                                        Toast.makeText(getApplicationContext(), "User updated", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
-                                        startActivity(intent); }
-                                } else {
-                                    // The query failed
-                                    Toast.makeText(getApplicationContext(),
-                                            "The query failed: " +
-                                                    Objects.requireNonNull(task.getException())
-                                                            .getMessage(),
-                                            Toast.LENGTH_SHORT).show(); }
-                            }
-                        });
-                    } }
-            } };
-        }
-        );}
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Task<QuerySnapshot> collectionRef = db.collection("Student_Info")
+                                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        int count = task.getResult().size();
+                                                        if (count > 0) {
+                                                            Map<String, Object> data = new HashMap<>();
+                                                            DocumentReference myRef = db.collection("Student_Info").document(id1);
+                                                            myRef.update("Stud_Name", name1);
+                                                            myRef.update("Stud_Email", email1);
+                                                            myRef.update("Stud_Contact", contact1);
+                                                            Toast.makeText(getApplicationContext(), "User updated", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(getApplicationContext(), Admin_Panel.class);
+                                                            startActivity(intent);
+                                                        }
+                                                    } else {
+                                                        // The query failed
+                                                        Toast.makeText(getApplicationContext(),
+                                                                "The query failed: " +
+                                                                        Objects.requireNonNull(task.getException())
+                                                                                .getMessage(),
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
+                }
+            }
+        });}
 }

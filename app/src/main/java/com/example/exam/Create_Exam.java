@@ -57,10 +57,11 @@ public class Create_Exam extends AppCompatActivity {
                 op2 = o2.getText().toString();
                 op3 = o3.getText().toString();
                 op4 = o4.getText().toString();
-            if(TextUtils.isEmpty(subj1) && TextUtils.isEmpty(que1)&& TextUtils.isEmpty(ans1)&& TextUtils.isEmpty(op1)&& TextUtils.isEmpty(op2)&& TextUtils.isEmpty(op3)&& TextUtils.isEmpty(op4))
+            if(TextUtils.isEmpty(subj1) || TextUtils.isEmpty(que1)|| TextUtils.isEmpty(ans1) || TextUtils.isEmpty(op1)|| TextUtils.isEmpty(op2)|| TextUtils.isEmpty(op3)|| TextUtils.isEmpty(op4))
             {
                 Toast.makeText(getApplicationContext(), "Please Check all Fields " , Toast.LENGTH_SHORT).show();
-            }else {
+            }
+            else {
                 mAuth.signInWithEmailAndPassword(auth_email, auth_pass).addOnCompleteListener(
                         task -> {
                             if (task.isSuccessful()) {
