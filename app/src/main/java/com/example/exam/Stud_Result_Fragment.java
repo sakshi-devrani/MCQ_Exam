@@ -58,7 +58,7 @@ public class Stud_Result_Fragment extends Fragment {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     String id = document.getString("Stud_id");
                                                     String name = document.getString("Stud_Name");
-                                                    String result = document.getString("Result");
+                                                    String result = document.get("Result").toString();
                                                     String subj = document.getString("Subj_Name");
                                                     resultdatamodel.add(new Result_Data_Model(name,id,subj,result));
                                                 }
